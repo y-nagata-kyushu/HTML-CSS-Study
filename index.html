@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIヘルプデスク｜お問い合わせ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="page-shell topbar-inner">
+      <a class="wordmark" href="index.html">AI<span>ヘルプデスク</span></a>
+      <a class="topbar-link" href="admin.html">管理ダッシュボードへ →</a>
+    </div>
+  </header>
+
+  <main class="page-shell form-layout">
+    <section class="form-card card">
+      <p class="eyebrow">お問い合わせフォーム</p>
+      <h1>お困りごとをお聞かせください</h1>
+      <p class="lead">
+        いただいた内容を確認のうえ、担当者より折り返しご連絡いたします。
+      </p>
+
+      <form id="inquiry-form" novalidate>
+        <div class="field">
+          <label for="name">お名前</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="field">
+          <label for="email">メールアドレス</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="field">
+          <label for="subject">件名</label>
+          <input type="text" id="subject" name="subject" required />
+        </div>
+        <div class="field">
+          <label for="message">内容</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">送信する</button>
+      </form>
+
+      <div id="confirm-message" class="confirm-message" hidden></div>
+    </section>
+
+    <aside class="form-note">
+      <p class="note-label">開発メモ</p>
+      <p>
+        現在はフェーズ1（フロントエンドのみ）です。送信内容はAWSには送られず、ブラウザの開発者コンソールに出力されるだけです。フェーズ4でAPI
+        Gateway・Lambda・DynamoDBに接続します。
+      </p>
+    </aside>
+  </main>
+
+  <script src="form.js"></script>
+</body>
+</html>
