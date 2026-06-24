@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>おいしいおさかな｜掲示板</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="page-shell topbar-inner">
+      <a class="wordmark" href="index.html">おいしい<span>おさかな</span></a>
+      <a class="topbar-link" href="index.html">← AIに質問する</a>
+    </div>
+  </header>
+
+  <main class="page-shell board-layout">
+    <div class="board-head">
+      <p class="eyebrow">掲示板</p>
+      <h1>みんなのQ&amp;A</h1>
+      <p class="lead">AIが答えた魚料理の質問と回答を共有しています。</p>
+    </div>
+
+    <div class="board-meta">
+      <span id="post-count" class="post-count" hidden></span>
+    </div>
+
+    <!-- 読み込み中 -->
+    <div id="loading-state" class="board-state">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <p>読み込み中…</p>
+    </div>
+
+    <!-- 投稿なし -->
+    <div id="empty-state" class="board-state" hidden>
+      <p class="board-state-icon">🐟</p>
+      <p>まだ投稿がありません。AIに質問して最初の投稿をしてみましょう！</p>
+      <a class="btn btn-primary" href="index.html" style="margin-top:16px">AIに質問する</a>
+    </div>
+
+    <!-- エラー -->
+    <div id="error-state" class="board-state" hidden>
+      <p class="board-state-icon">⚠️</p>
+      <p>データの読み込みに失敗しました。<br>時間をおいて再度お試しください。</p>
+    </div>
+
+    <!-- 投稿一覧 -->
+    <div id="post-list" class="post-list"></div>
+  </main>
+
+  <script src="board.js"></script>
+</body>
+</html>
