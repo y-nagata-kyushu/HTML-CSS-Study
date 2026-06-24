@@ -3,63 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AIヘルプデスク｜お問い合わせ</title>
+  <title>AIヘルプデスク</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="page-shell topbar-inner">
-      <a class="wordmark" href="index.html">AI<span>ヘルプデスク</span></a>
-      <a class="topbar-link" href="admin.html">管理ダッシュボードへ →</a>
+      <span class="wordmark">おいしい<span>おさかな</span></span>
     </div>
   </header>
 
-  <main class="page-shell form-layout">
-    <section class="form-card card">
-      <p class="eyebrow">お問い合わせフォーム</p>
-      <h1>お困りごとをお聞かせください</h1>
-      <p class="lead">
-        いただいた内容を確認のうえ、担当者より折り返しご連絡いたします。
-      </p>
+  <main class="chat-shell">
+    <div class="chat-card card">
 
-      <form id="inquiry-form" novalidate>
-        <div class="field">
-          <label for="name">お名前</label>
-          <input type="text" id="name" name="name" required />
+      <!-- メッセージ一覧 -->
+      <div class="message-list" id="message-list">
+        <div class="bubble-wrap ai">
+          <div class="bubble">
+            こんにちは！AIおさかなアシスタントです。気になる魚料理についてお調べします。
+          </div>
         </div>
-        <div class="field">
-          <label for="email">メールアドレス</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div class="field">
-          <label for="subject">件名</label>
-          <input type="text" id="subject" name="subject" required />
-        </div>
-        <div class="field">
-          <label for="message">内容</label>
-          <textarea id="message" name="message" rows="6" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">送信する</button>
-      </form>
+      </div>
 
-      <div id="confirm-message" class="confirm-message" hidden></div>
-    </section>
+      <!-- AIが回答した後に表示するアクションボタン -->
+      <div class="action-area" id="action-area" hidden>
+        <p class="action-label">この回答を掲示板で共有しますか？</p>
+        <div class="action-buttons">
+          <button class="btn btn-ghost" id="btn-resolved">やめておく</button>
+          <button class="btn btn-primary" id="btn-share">共有する</button>
+        </div>
+      </div>
 
-    <aside class="form-note">
-      <p class="note-label">開発メモ</p>
-      <p>
-        現在はフェーズ1（フロントエンドのみ）です。送信内容はAWSには送られず、ブラウザの開発者コンソールに出力されるだけです。フェーズ4でAPI
-        Gateway・Lambda・DynamoDBに接続します。
-      </p>
-    </aside>
+      <!-- POSTするためのフォーム -->
+      <div class="share-panel" id="share-panel" hidden>
+        <p class="action-label">掲示板に登録する情報を入力してください。</p>
+        <form id="share-form" novalidate>
+          <div class="share-fields">
+            <div class="field">
+              <label for="name">お名前</label>
+              <input type="text" id="name" required />
+            </div>
+            <div class="field">
+              <label for="email">メールアドレス</label>
+              <input type="email" id="email" required />
+            </div>
+          </div>
+          <p class="share-error" hidden>送信に失敗しました。時間をおいて再度お試しください。</p>
+          <button type="submit" class="btn btn-primary">送信する</button>
+        </form>
+      </div>
+
+      <!-- 入力エリア -->
+      <div class="chat-input-area">
+        <textarea id="chat-input" placeholder="質問を入力してください（Enterで送信）" rows="1"></textarea>
+        <button class="btn btn-send" id="send-btn" aria-label="送信">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M2 9h14M9 2l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
   </main>
 
-  <script src="form.js"></script>
+  <script src="chat.js"></script>
 </body>
 </html>
