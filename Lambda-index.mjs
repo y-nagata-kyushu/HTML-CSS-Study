@@ -1,8 +1,11 @@
-import { DynamoDB, DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocument, DynamoDBDocumentClient,
-  PutCommand, } from '@aws-sdk/lib-dynamodb';
+import { DynamoDB, DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBDocument,
+  DynamoDBDocumentClient,
+  PutCommand,
+} from "@aws-sdk/lib-dynamodb";
 // uuid生成のための準備
-import crypto from 'node:crypto'
+import crypto from "node:crypto";
 
 // DynamoDBへの接続クライアントの作成
 const client = new DynamoDBClient({});
@@ -24,44 +27,47 @@ const tableName = process.env.TABLE_NAME;
 
 // 外部から呼び出すことができるようにハンドラを作成
 export const handler = async (event) => {
-    //console.log('Received event:', JSON.stringify(event, null, 2));
-    
-    try {
-        const body = JSON.parse(event.body || "{}");
-        const { name, email, subject, message } = body;
-        
-        if (!name || !email || !subject || !message) {
-            return respond(400, { error: "リクエストが不正です" });
-          }
+  //console.log('Received event:', JSON.stringify(event, null, 2));
 
-        const item = {
-            id: crypto.randomUUID(),
-            name,
-            email,
-            subject,
-            message,
-            createdAt: new Date().toISOString(),
-          };
+  try {
+    const body = JSON.parse(event.body || "{}");
+    const { name, email, subject, message } = body;
 
-        await docClient.send(new PutCommand({
-            TableName: tableName,
-            Item: item,
-          }));
+    // とりあえずmessageが空の場合だけ弾く
+    if (!message) {
+      return respond(400, { error: "リクエストが不正です" });
+    }
 
-        return respond(201, { message: "作成に成功しました" });
+    const item = {
+      id: crypto.randomUUID(),
+      name,
+      email,
+      subject,
+      message,
+      priority: "normal", // フェーズ5でBedrockが上書きする想定の仮値
+      createdAt: new Date().toISOString(),
+    };
 
-    } catch (error) {
-        console.error(error);
-        return respond(500, { error: "サーバーエラーが発生しました" });
-    }    
+    await docClient.send(
+      new PutCommand({
+        TableName: tableName,
+        Item: item,
+      }),
+    );
+
+    return respond(201, { Servermessage: "作成に成功しました", ...item });
+  } catch (error) {
+    console.error(error);
+    return respond(500, { error: "サーバーエラーが発生しました" });
+  }
 };
 
 function respond(statusCode, body) {
-    return {
-      statusCode: statusCode,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-  }
+  return {
+    statusCode: statusCode,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  };
+}
