@@ -31,10 +31,10 @@ export const handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body || "{}");
-    const { name, email, subject, message } = body;
+    const { name, email, lastaireply, lastquestion } = body;
 
-    // とりあえずmessageが空の場合だけ弾く
-    if (!message) {
+    // とりあえずlastaireplyが空の場合だけ弾く
+    if (!lastaireply) {
       return respond(400, { error: "リクエストが不正です" });
     }
 
@@ -42,8 +42,8 @@ export const handler = async (event) => {
       id: crypto.randomUUID(),
       name,
       email,
-      subject,
-      message,
+      lastaireply,
+      lastquestion,
       priority: "normal", // フェーズ5でBedrockが上書きする想定の仮値
       createdAt: new Date().toISOString(),
     };
