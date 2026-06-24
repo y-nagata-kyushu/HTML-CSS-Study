@@ -2,7 +2,6 @@ const form = document.getElementById("inquiry-form");
 const confirmMessage = document.getElementById("confirm-message");
 const submitButton = form.querySelector("button[type=submit]");
 const API_BASE_URL = "https://eat-sushi.monster/api"
-// const API_BASE_URL = "https://ps1z004640.execute-api.ap-northeast-1.amazonaws.com/api"
 
 form.addEventListener("submit", async(event) => {
   event.preventDefault();
