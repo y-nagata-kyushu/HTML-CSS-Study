@@ -646,3 +646,79 @@ a:hover { text-decoration: underline; }
     gap: var(--space-1);
   }
 }
+/* ======================
+   Web検索トグル
+   ====================== */
+
+.chat-input-area {
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.web-search-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  width: 100%;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-1);
+  user-select: none;
+}
+
+/* チェックボックス本体は非表示 */
+.web-search-toggle-wrap input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* トグルのトラック（背景バー） */
+.toggle-track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: var(--color-border);
+  border-radius: 999px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+/* トグルのつまみ */
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  transition: transform 0.2s;
+}
+
+/* オン状態 */
+.web-search-toggle-wrap input:checked + .toggle-track {
+  background: var(--color-accent);
+}
+.web-search-toggle-wrap input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(16px);
+}
+
+/* フォーカス表示 */
+.web-search-toggle-wrap input:focus-visible + .toggle-track {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.toggle-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  transition: color 0.2s;
+}
+.web-search-toggle-wrap input:checked ~ .toggle-label {
+  color: var(--color-accent);
+}
