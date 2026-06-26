@@ -59,12 +59,15 @@
 
       <!-- 入力エリア -->
       <div class="chat-input-area">
-        <label class="web-search-toggle-wrap" title="オンにするとWeb検索を使って回答します">
+        <label class="web-search-toggle-wrap">
           <input type="checkbox" id="web-search-toggle" />
           <span class="toggle-track">
             <span class="toggle-thumb"></span>
           </span>
           <span class="toggle-label" id="web-search-label">Web検索: オフ</span>
+          <span class="toggle-hint" aria-label="オンにするとWeb検索を使って回答します">?
+            <span class="toggle-tooltip">オンにするとAIがWeb検索を実行して回答します</span>
+          </span>
         </label>
         <textarea id="chat-input" placeholder="質問を入力してください（Enterで送信）" rows="1"></textarea>
         <button class="btn btn-send" id="send-btn" aria-label="送信">
