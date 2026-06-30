@@ -647,128 +647,130 @@ a:hover { text-decoration: underline; }
   }
 }
 /* ======================
-   Web検索トグル
+   エンジンセレクター
    ====================== */
 
-.chat-input-area {
-  flex-wrap: wrap;
-  gap: var(--space-2);
+.engine-selector-area {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  background: var(--color-surface);
 }
 
-.web-search-toggle-wrap {
+/* ドロップダウン全体のラッパー（相対配置の基準） */
+.engine-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* 現在の選択を表示するトリガーボタン */
+.engine-dropdown-trigger {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  cursor: pointer;
+  justify-content: space-between;
+  gap: var(--space-3);
   width: 100%;
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: var(--space-1);
-  user-select: none;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
 }
 
-/* チェックボックス本体は非表示 */
-.web-search-toggle-wrap input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* トグルのトラック（背景バー） */
-.toggle-track {
-  position: relative;
-  width: 36px;
-  height: 20px;
+.engine-dropdown-trigger:hover {
   background: var(--color-border);
-  border-radius: 999px;
-  transition: background 0.2s;
-  flex-shrink: 0;
 }
 
-/* トグルのつまみ */
-.toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0,0,0,.2);
-  transition: transform 0.2s;
+.engine-dropdown.is-open .engine-dropdown-trigger {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
 }
 
-/* オン状態 */
-.web-search-toggle-wrap input:checked + .toggle-track {
-  background: var(--color-accent);
-}
-.web-search-toggle-wrap input:checked + .toggle-track .toggle-thumb {
-  transform: translateX(16px);
-}
-
-/* フォーカス表示 */
-.web-search-toggle-wrap input:focus-visible + .toggle-track {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+.engine-dropdown-current {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
-.toggle-label {
-  font-size: 12px;
-  font-weight: 500;
+.engine-dropdown-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.engine-dropdown-desc {
+  font-size: 11px;
   color: var(--color-text-tertiary);
-  transition: color 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.web-search-toggle-wrap input:checked ~ .toggle-label {
+
+.engine-dropdown-chevron {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  transition: transform 0.15s;
+}
+.engine-dropdown.is-open .engine-dropdown-chevron {
+  transform: rotate(180deg);
   color: var(--color-accent);
 }
 
-.toggle-hint {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--color-surface-muted);
-  border: 1px solid var(--color-border);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--color-text-tertiary);
-  cursor: default;
-  position: relative;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.toggle-tooltip {
-  display: none;
+/* 選択肢リスト：上方向に展開し、必要ならスクロール */
+.engine-dropdown-list {
   position: absolute;
   bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--color-text-primary);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 400;
-  white-space: nowrap;
-  padding: var(--space-2) var(--space-3);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  pointer-events: none;
-  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 20;
 }
 
-/* 吹き出しの矢印 */
-.toggle-tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: var(--color-text-primary);
+.engine-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: calc(var(--radius-sm) - 2px);
+  cursor: pointer;
 }
 
-.toggle-hint:hover .toggle-tooltip {
-  display: block;
+.engine-option:hover {
+  background: var(--color-surface-muted);
+}
+
+.engine-option.is-selected {
+  background: var(--color-accent-bg);
+}
+
+.engine-option-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.engine-option.is-selected .engine-option-label {
+  color: var(--color-accent-dark);
+}
+
+.engine-option-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+@media (max-width: 600px) {
+  .engine-dropdown {
+    max-width: none;
+  }
 }
