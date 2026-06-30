@@ -395,6 +395,7 @@ a:hover { text-decoration: underline; }
   font-size: 14px;
   line-height: 1.7;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 .bubble-wrap.user .bubble {
   background: var(--color-accent);
@@ -604,6 +605,7 @@ a:hover { text-decoration: underline; }
   line-height: 1.75;
   color: var(--color-text-primary);
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .post-question {
