@@ -57,6 +57,22 @@
         </form>
       </div>
 
+      <!-- エンジンセレクター -->
+      <div class="engine-selector-area">
+        <div class="engine-dropdown" id="engine-dropdown">
+          <button type="button" class="engine-dropdown-trigger" id="engine-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="engine-dropdown-current">
+              <span class="engine-dropdown-label" id="engine-dropdown-label"></span>
+              <span class="engine-dropdown-desc" id="engine-desc"></span>
+            </span>
+            <svg class="engine-dropdown-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="engine-dropdown-list" id="engine-selector" role="listbox" hidden></ul>
+        </div>
+      </div>
+
       <!-- 入力エリア -->
       <div class="chat-input-area">
         <textarea id="chat-input" placeholder="質問を入力してください（Enterで送信）" rows="1"></textarea>
@@ -70,6 +86,7 @@
     </div>
   </main>
 
-  <script src="chat.js"></script>
+  <script src="engine-options.js"></script>
+  <script src="chat-options.js"></script>
 </body>
 </html>

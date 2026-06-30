@@ -395,6 +395,7 @@ a:hover { text-decoration: underline; }
   font-size: 14px;
   line-height: 1.7;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 .bubble-wrap.user .bubble {
   background: var(--color-accent);
@@ -604,6 +605,7 @@ a:hover { text-decoration: underline; }
   line-height: 1.75;
   color: var(--color-text-primary);
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .post-question {
@@ -644,5 +646,133 @@ a:hover { text-decoration: underline; }
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-1);
+  }
+}
+/* ======================
+   エンジンセレクター
+   ====================== */
+
+.engine-selector-area {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  background: var(--color-surface);
+}
+
+/* ドロップダウン全体のラッパー（相対配置の基準） */
+.engine-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* 現在の選択を表示するトリガーボタン */
+.engine-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+}
+
+.engine-dropdown-trigger:hover {
+  background: var(--color-border);
+}
+
+.engine-dropdown.is-open .engine-dropdown-trigger {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+}
+
+.engine-dropdown-current {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.engine-dropdown-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.engine-dropdown-desc {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.engine-dropdown-chevron {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  transition: transform 0.15s;
+}
+.engine-dropdown.is-open .engine-dropdown-chevron {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+/* 選択肢リスト：上方向に展開し、必要ならスクロール */
+.engine-dropdown-list {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.engine-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: calc(var(--radius-sm) - 2px);
+  cursor: pointer;
+}
+
+.engine-option:hover {
+  background: var(--color-surface-muted);
+}
+
+.engine-option.is-selected {
+  background: var(--color-accent-bg);
+}
+
+.engine-option-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.engine-option.is-selected .engine-option-label {
+  color: var(--color-accent-dark);
+}
+
+.engine-option-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+@media (max-width: 600px) {
+  .engine-dropdown {
+    max-width: none;
   }
 }

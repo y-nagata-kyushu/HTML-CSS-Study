@@ -4,6 +4,16 @@ const API_BASE_URL = "https://eat-sushi.monster/api";
 let lastQuestion = "";
 let lastAiReply = "";
 let isShared = false;
+let useWebSearch = false;
+
+// --- エンジントグル ---
+const webSearchToggle = document.getElementById("web-search-toggle");
+const webSearchLabel  = document.getElementById("web-search-label");
+
+webSearchToggle.addEventListener("change", () => {
+    useWebSearch = webSearchToggle.checked;
+    webSearchLabel.textContent = useWebSearch ? "Web検索: オン" : "Web検索: オフ";
+});
 
 // --- DOM参照 ---
 const messageList = document.getElementById("message-list");
@@ -61,7 +71,8 @@ async function handleSend() {
     addTypingIndicator();
 
     try {
-        const res = await fetch(`${API_BASE_URL}/chat`, {
+        const endpoint = useWebSearch ? `${API_BASE_URL}/chat-harness` : `${API_BASE_URL}/chat`;
+        const res = await fetch(endpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: text })
